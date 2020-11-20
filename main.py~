@@ -46,7 +46,7 @@ for v in videos:
     print("TODO: process videos")
 
 if cube.completeCube():
-    print(cube.solution())
+    print cube.solution()
     exit()
 
 print("Sorry, not enough information")
