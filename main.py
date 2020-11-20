@@ -13,7 +13,7 @@ for i in sys.argv[1:]:
     else:
         images.append(i)
 
-# colors are ints 0-5, these correspond to Yellow, Red, Green, Orange, Blue, and White
+# colors are chars, 'O', 'B', 'R', 'W', 'Y', 'G'
 
 class Cube:
     def __init__(self):
@@ -24,7 +24,10 @@ class Cube:
     def solution(self):
         print("TODO: Cube.solution()")
 
-    def addFace(self, facesData): #faces are a 3x3 list of ints
+# faces are a 3x3 list of ints, facesData will be two of these,
+# joined so that the final column of the first is adjacent to 
+# the first column of the last
+    def addFace(self, facesData): 
         self.faces += faceMap(self.notatedList, facesData)
 
     def completeCube(self):
