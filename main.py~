@@ -1,8 +1,7 @@
 import numpy as np
 import sys
 import cv2
-from faceMap import setFaces 
-import rubik-solver
+from faceMap import 
 
 images = []
 videos = []
