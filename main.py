@@ -1,6 +1,7 @@
 import numpy as np
 import sys
 import cv2
+import faceMap
 from faceMap import setFaces 
 from rubik_solver import utils
 
