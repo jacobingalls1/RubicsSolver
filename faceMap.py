@@ -1,33 +1,30 @@
 # faces will be passed in two at a time,
 # they will be contiguous
 # face[x][y]
-opposites = {'R':'O', 'O':'R', 'B':'G', 'G':'B', 'W':'Y', 'Y':'W'}
-starts = {  'Y': 0,
-            'B': 9,
-            'R': 18,
-            'G': 27,
-            'O': 36,
-            'W': 45}
-
-settings = {'O': {'B': [0, 0], 'W': [1, 3], 'Y': [3, 1], 'G': [2, 2]},
-            'B': {'O': [2, 2], 'R': [0, 0], 'W': [1, 0], 'Y': [3, 0]},
-            'R': {'B': [2, 2], 'W': [1, 1], 'Y': [3, 3], 'G': [0, 0]},
-            'W': {'O': [3, 1], 'B': [3, 2], 'R': [3, 3], 'G': [3, 0]},
-            'Y': {'O': [1, 3], 'B': [2, 3], 'R': [1, 1], 'G': [1, 0]},
-            'G': {'O': [0, 0], 'R': [2, 2], 'W': [1, 0], 'Y': [3, 2]}}
+opposites = {'r':'o', 'o':'r', 'b':'g', 'g':'b', 'w':'y', 'y':'w'}
+starts = {  'y': 0,
+            'b': 9,
+            'r': 18,
+            'g': 27,
+            'o': 36,
+            'w': 45}
+#THIS IS CORRECT AND TOOK A WHILE TO TEST, DO NOT CHANGE
+settings = {'o': {'b': [0, 0], 'w': [3, 1], 'y': [1, 3], 'g': [2, 2]},
+            'b': {'o': [2, 2], 'r': [0, 0], 'w': [3, 0], 'y': [1, 0]},
+            'r': {'b': [2, 2], 'w': [3, 3], 'y': [1, 1], 'g': [0, 0]},
+            'w': {'o': [3, 1], 'b': [2, 1], 'r': [1, 1], 'g': [0, 1]},
+            'y': {'o': [1, 3], 'b': [2, 3], 'r': [3, 3], 'g': [0, 3]},
+            'g': {'o': [0, 0], 'r': [2, 2], 'w': [3, 2], 'y': [1, 2]}}
 
 
 def setFaces(stickers, faces): 
-    print(faces)
     colors = [faces[0][1][1], faces[1][1][1]]
-    print(colors)
     start = [starts[i] for i in colors]
     if colors[0] in opposites[colors[1]]:
         print("ERROR: INVALID CUBE")
         return False
-    rotations = settings[colors[0]][colors[1]] #in clockwise direction
+    rotations = settings[colors[0]][colors[1]] #in counterclockwise direction
     
-    print(rotations)
     for f in range(2):
         counter = start[f]
         for i in range(3):

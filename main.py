@@ -31,7 +31,7 @@ class Cube:
         self.faces += faceMap(self.notatedList, facesData)
 
     def completeCube(self):
-        return self.faces == 6
+        return self.notatedList.count('-') == 0
 
     def printCube(self): #could be improved to cube net
         print()
@@ -42,22 +42,15 @@ class Cube:
                 counter += 1
             print()
         print()
+
+    def solve(self):
+        if not self.completeCube():
+            print("Cube is not yet complete! Cannot solve.")
+            return
+        print(utils.solve(''.join(self.notatedList), 'Kociemba'))
         
 
 cube = Cube()
-
-cube.printCube()
-
-input1 = 'groryrgrg'
-input2 = 'bbbwbgooo'
-
-input3 = 'ooorrrrrr'
-input4 = 'bbbgggggg'
-
-input5 = 'oorooroor'
-input6 = 'wwwwwwwww'
-
-inputs = [input1, input2, input3, input4, input5, input6]
 
 f1 = [[0 for j in range(3)] for i in range(3)]
 f2 = [[0 for j in range(3)] for i in range(3)]
@@ -66,6 +59,16 @@ f4 = [[0 for j in range(3)] for i in range(3)]
 f5 = [[0 for j in range(3)] for i in range(3)]
 f6 = [[0 for j in range(3)] for i in range(3)]
 
+input1 = 'obroyrgbw'
+input2 = 'ygoyoyrwr'
+
+input3 = 'bowwbywry'
+input4 = 'bgygrwbgo'
+
+input5 = 'grbwgyrog'
+input6 = 'wogbwbyro'
+
+inputs = [input1, input2, input3, input4, input5, input6]
 faces = [f1,f2,f3,f4,f5,f6]
 
 count = -1
@@ -73,15 +76,15 @@ for i in range(3):
     for j in range(3):
         count += 1
         for f in range(len(faces)):
-            faces[f][i][j] = inputs[f][count].upper()
-
-
+            faces[f][i][j] = inputs[f][count]
 
 setFaces(cube.notatedList, [f1,f2])
 setFaces(cube.notatedList, [f3,f4])
 setFaces(cube.notatedList, [f5,f6])
 
 cube.printCube()
+
+cube.solve()
 
 exit()
 images = [cv2.imread(i) for i in images]
