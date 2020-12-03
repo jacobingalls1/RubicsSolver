@@ -3,18 +3,22 @@ import sys
 import cv2
 import faceMap
 from faceMap import setFaces 
+from imageProcess import get_centroids, get_lines 
 from rubik_solver import utils
+
 
 images = []
 videos = []
 
+imW = 480
+
 for i in sys.argv[1:]:
-    if i.split[1] in ['mp4']:
+    if i.split('.')[-1] in ['mp4']:
         videos.append(i)
     else:
         images.append(i)
 
-# colors are chars, 'O', 'B', 'R', 'W', 'Y', 'G'
+# colors are chars, 'Y', 'B', 'R', 'G', 'O', 'W'
 
 class Cube:
     def __init__(self):
@@ -52,6 +56,8 @@ class Cube:
 
 cube = Cube()
 
+
+'''
 f1 = [[0 for j in range(3)] for i in range(3)]
 f2 = [[0 for j in range(3)] for i in range(3)]
 f3 = [[0 for j in range(3)] for i in range(3)]
@@ -59,14 +65,14 @@ f4 = [[0 for j in range(3)] for i in range(3)]
 f5 = [[0 for j in range(3)] for i in range(3)]
 f6 = [[0 for j in range(3)] for i in range(3)]
 
-input1 = 'obroyrgbw'
-input2 = 'ygoyoyrwr'
+input1 = 'ywboowwry'
+input2 = 'yryoybogw'
 
-input3 = 'bowwbywry'
-input4 = 'bgygrwbgo'
+input3 = 'rgwrgyobr'
+input4 = 'owwrrybyr'
 
-input5 = 'grbwgyrog'
-input6 = 'wogbwbyro'
+input5 = 'gbrywwgbo'
+input6 = 'bgggbobog'
 
 inputs = [input1, input2, input3, input4, input5, input6]
 faces = [f1,f2,f3,f4,f5,f6]
@@ -85,11 +91,29 @@ setFaces(cube.notatedList, [f5,f6])
 cube.printCube()
 
 cube.solve()
+'''
 
-exit()
-images = [cv2.imread(i) for i in images]
 
-print("TODO: process images")
+for im in images:
+    print(im)
+    image = cv2.imread(im)
+    image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
+    cents = get_centroids(image)
+    #centroids are mostly correct, some trouble with yellow and red
+    combinedCents = []
+    for i in cents[1:]:
+        for j in i:
+            combinedCents.append(j)
+            cv2.circle(image, tuple(np.int32(j)), 5, (255,0,0))
+
+    print(len(combinedCents))
+    lines = get_lines(combinedCents)
+    #lines looks about correct too, some problems involved in the shifting of midpoints over nonlinear transforms
+    for i in lines:
+        cv2.line(image, tuple(np.int32(i[0])), tuple(np.int32(i[1])), (0,0,255), 1)
+
+    cv2.imwrite("output.png", image)
+
 
 if cube.completeCube():
     print(cube.solution())
