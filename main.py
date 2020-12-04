@@ -2,8 +2,10 @@ import numpy as np
 import sys
 import cv2
 import faceMap
+import time
+from imageProcess import get_centroids
+from centroidProcess import get_lines
 from faceMap import setFaces 
-from imageProcess import get_centroids, get_lines 
 from rubik_solver import utils
 
 
@@ -95,7 +97,10 @@ cube.solve()
 
 
 for im in images:
+    get_lines([])
+    exit()
     print(im)
+    t0 = time.time_ns() 
     image = cv2.imread(im)
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     cents = get_centroids(image)
@@ -104,16 +109,18 @@ for im in images:
     for i in cents[1:]:
         for j in i:
             combinedCents.append(j)
-            cv2.circle(image, tuple(np.int32(j)), 5, (255,0,0))
 
     print(len(combinedCents))
     lines = get_lines(combinedCents)
-    #lines looks about correct too, some problems involved in the shifting of midpoints over nonlinear transforms
+    #(end1, end2, middle point)
     for i in lines:
-        cv2.line(image, tuple(np.int32(i[0])), tuple(np.int32(i[1])), (0,0,255), 1)
+        cv2.line(image, tuple(np.int32(combinedCents[i[0]])), tuple(np.int32(combinedCents[i[1]])), (0,0,255), 1)
+    
+    for c in combinedCents:
+        cv2.circle(image, tuple(np.int32(c)), 5, (255,0,0))
 
     cv2.imwrite("output.png", image)
-
+    print("took %f seconds" %((time.time_ns()-t0)/100000000))
 
 if cube.completeCube():
     print(cube.solution())

@@ -18,7 +18,6 @@ colors = [[np.matrix([20,130,130]),np.matrix([40,255,255])], #Y
 def get_centroids(image):
     imageHSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     centroids = [[] for i in range(len(colors)-1)]
-
     for c in range(len(colors)-1):
         mask = cv2.inRange(imageHSV, colors[c][0], colors[c][1])
         mskimg = cv2.bitwise_and(imageHSV, imageHSV, mask=mask)
@@ -30,7 +29,7 @@ def get_centroids(image):
         gim = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         _,gim = cv2.threshold(gim, 1, 255, cv2.THRESH_BINARY)
         kernel = np.ones((6,6), np.uint8)
-        gim = cv2.morphologyEx(gim, cv2.MORPH_OPEN, kernel, iterations = 2)
+        #gim = cv2.morphologyEx(gim, cv2.MORPH_OPEN, kernel, iterations = 2)
         retval, labels, stats, cent = cv2.connectedComponentsWithStats(gim, 4, cv2.CV_32S)
 
         if c == 0:
