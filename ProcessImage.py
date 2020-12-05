@@ -28,6 +28,7 @@ def processImage(image):
         thresh_band_img = cv2.bitwise_and(high_img, low_img)
 
 
+
         thresh_img = cv2.bitwise_and(thresh_img, thresh_band_img)
 
     cv2.imshow("Thresholded image", thresh_img)
