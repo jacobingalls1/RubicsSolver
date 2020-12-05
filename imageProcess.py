@@ -19,6 +19,7 @@ def get_centroids(image):
     imageHSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     centroids = [[] for i in range(len(colors)-1)]
     for c in range(len(colors)-1):
+        print(c)
         mask = cv2.inRange(imageHSV, colors[c][0], colors[c][1])
         mskimg = cv2.bitwise_and(imageHSV, imageHSV, mask=mask)
         if c == 2:
@@ -34,13 +35,9 @@ def get_centroids(image):
 
         if c == 0:
             cv2.imwrite("yellow.png", gim)
-            print(cent)
         for i in range(len(stats)):
-            if c == 0:
-                print(stats[i, cv2.CC_STAT_AREA])
             if areaLo < stats[i, cv2.CC_STAT_AREA] < areaHi:
                 centroids[c].append(cent[i])
-
 
     return centroids
 
