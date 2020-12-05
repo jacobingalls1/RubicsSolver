@@ -5,8 +5,12 @@
 import cv2
 import math
 from statistics import stdev
+from classes import Sticker
 
-center = [3, 17, 19]
+#center = [3, 17, 19]
+
+def get_color(pos):
+    return 'r'
 
 faces = [[], [], []]
 
@@ -19,6 +23,7 @@ def distance_mag(pt1, pt2):
 
 def find_center(pts, center, current_centroid, bgr_img):
     #TODO: IMPROVE THE METHOD OF FINDING A FACE
+    faces = [[], [], []]
     dict = []
 
     for i in range(len(pts)):
@@ -98,10 +103,12 @@ def center_filter(imageWidth, imageHeight, whiteCentroids, blackCentroids, bgr_i
     return white_centroids
 
 
-def main():
+def find_sides(image=cv2.imread('testing/L1.jpg'), demo=False):
     # Read image
+    print(demo)
+    faces = [[], [], []]
     imW = 480
-    bgr_img = cv2.imread("L1.jpg")
+    bgr_img = image
     bgr_img = cv2.resize(bgr_img, (int(imW), int(imW * bgr_img.shape[0] / bgr_img.shape[1])))
 
     image_height = bgr_img.shape[0]
@@ -111,8 +118,9 @@ def main():
 
     binary_img = cv2.adaptiveThreshold(src=gray_img, maxValue=255, adaptiveMethod=cv2.ADAPTIVE_THRESH_MEAN_C,
                                        thresholdType=cv2.THRESH_BINARY, blockSize=31, C=10)
-    cv2.imshow("binary", binary_img)
-    cv2.waitKey(0)
+    if demo:
+        cv2.imshow("binary", binary_img)
+        cv2.waitKey(0)
 
     # Clean up using opening + closing.
     ksize = 2
@@ -138,8 +146,9 @@ def main():
 
     # reverse black and white and find Black centroids
     binary_img = cv2.bitwise_not(binary_img)
-    cv2.imshow("reverse_binary", binary_img)
-    cv2.waitKey(0)
+    if demo:
+        cv2.imshow("reverse_binary", binary_img)
+        cv2.waitKey(0)
     num_labels, labels_img, stats, centroids = cv2.connectedComponentsWithStats(binary_img)
 
     # Find black centroids
@@ -152,6 +161,7 @@ def main():
     # filter out outliers
     centroid_location_white = center_filter(binary_img.shape[0], binary_img.shape[1], centroid_location_white,
                                             centroid_location_black, bgr_img);
+
 
     # draw points
     for i in range(len(centroid_location_white)):
@@ -196,11 +206,18 @@ def main():
                     elif p == 2:
                         color = (0, 0, 255)
                     for q in range(len(faces[p])):
-                        cv2.circle(bgr_img, center=(int(faces[p][q][0]), int(faces[p][q][1])),radius=5, color=color, thickness=-1)
+                        if demo:
+                            cv2.circle(bgr_img, center=(int(faces[p][q][0]), int(faces[p][q][1])),radius=5, color=color, thickness=-1)
                         centroid_location_white.remove(faces[p][q])
                     break
-    cv2.imshow("show centroid", bgr_img)
-    cv2.waitKey(0)
+    if demo:
+        cv2.imshow("show centroid", bgr_img)
+        cv2.waitKey(0)
+        exit()
 
+    for s in range(len(faces)):
+        faces[s] = [Sticker(get_color(st), st) for st in faces[s]]
 
-main()
+    return faces
+
+find_sides()

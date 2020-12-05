@@ -4,7 +4,7 @@ import cv2
 import faceMap
 import time
 from classes import Cube, Sticker
-from imageProcess import get_faces
+from find_cube_side import find_sides
 from centroidProcess import format_faces
 from faceMap import setFaces 
 from rubik_solver import utils
@@ -25,7 +25,9 @@ cube = Cube()
 
 def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
-    faces = get_faces(image)
+    faces = find_sides(image)
+    print(faces)
+    exit()
     for i in faces:
         cube.setFaces(i)
         cube.cubeSolve()
