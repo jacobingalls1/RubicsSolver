@@ -53,39 +53,15 @@ def get_centroids(image):
         gim = cv2.morphologyEx(gim, cv2.MORPH_OPEN, kernel, iterations = 2)
         retval, labels, stats, cent = cv2.connectedComponentsWithStats(gim, 4, cv2.CV_32S)
 
-        if c == 0:
-            cv2.imwrite("yellow.png", gim)
-            print(cent)
+        cv2.imwrite(f"{c}.png", gim)
+        print(cent)
         for i in range(len(stats)):
             if c == 0:
                 print(stats[i, cv2.CC_STAT_AREA])
             if areaLo < stats[i, cv2.CC_STAT_AREA] < areaHi:
                 centroids[c].append(cent[i])
 
-
     return centroids
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+get_centroids(cv2.imread('./testing/'))
