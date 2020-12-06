@@ -12,15 +12,6 @@ colors =[[[20,130,130], [40,255,255]], #y
          [[150,130,130], [180,255,255]], #R1
          [[0,130,130], [10,255,255]]] #R2
 
-'''
-[[np.matrix([20,130,130]),np.matrix([40,255,255])], #Y
-          [np.matrix([100,130,130]),np.matrix([120,255,255])], #B
-          [np.matrix([150,130,130]),np.matrix([180,255,255])], #R1
-          [np.matrix([60,100,100]),np.matrix([100,255,255])], #G
-          [np.matrix([5,130,130]),np.matrix([20,255,255])], #O
-          [np.matrix([0,20,200]),np.matrix([180,100,255])], #W
-          [np.matrix([0,130,130]),np.matrix([10,255,255])]] #R2
-'''
 
 #Pass in image object, and point as a list
 #Returns color with hsv values
