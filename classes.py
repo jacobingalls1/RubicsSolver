@@ -5,6 +5,9 @@ class Sticker:
         self.color = color
         self.pos = pos
 
+    def __repr__(self):
+        return "Color %s at (%i, %i)"%(self.color, self.pos[0], self.pos[1])
+
 class Cube:
     def __init__(self):
         self.faces = 0
