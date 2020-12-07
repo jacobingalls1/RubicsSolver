@@ -8,6 +8,7 @@ from statistics import stdev
 from classes import Sticker
 
 #center = [3, 17, 19]
+faces = [[], [], []]
 
 def get_color(pos):
     return 'r'
@@ -23,11 +24,10 @@ def distance_mag(pt1, pt2):
 
 def find_center(pts, center, current_centroid, bgr_img):
     #TODO: IMPROVE THE METHOD OF FINDING A FACE
-    faces = [[], [], []]
     dict = []
 
     for i in range(len(pts)):
-        slope = abs(float(pts[i][1] - center[1]) / float(pts[i][0] - center[0]))
+        slope = abs(float(pts[i][1] - center[1]) / (float(pts[i][0] - center[0])+0.000001))
         if slope > 3.0:
             slope = 3.0
         dict.append([i, slope, 0])
@@ -105,7 +105,6 @@ def center_filter(imageWidth, imageHeight, whiteCentroids, blackCentroids, bgr_i
 
 def find_sides(image=cv2.imread('testing/L1.jpg'), demo=False):
     # Read image
-    print(demo)
     faces = [[], [], []]
     imW = 480
     bgr_img = image

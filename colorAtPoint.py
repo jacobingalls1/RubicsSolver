@@ -51,21 +51,8 @@ def findColor(imageRGB, point):
         if color[0][2] > pointColor[2] or color [1][2] < pointColor[2]:
             continue
 
-        if i == 0:
-            colorName = "yellow"
-        elif i == 1:
-            colorName = "blue"
-        elif i == 2:
-            colorName = "green"
-        elif i == 3:
-            colorName = "orange"
-        elif i == 4:
-            colorName = "white"
-        elif i == 5:
-            colorName = "red"
-        elif i == 6:
-            colorName = "red"
-
+        if 0<=i<=6:
+            colorName = ['yellow', 'blue', 'green', 'orange', 'white', 'red', 'red'][i]
         else:
             colorName = "No color identified"
             
