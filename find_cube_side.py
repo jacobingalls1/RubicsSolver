@@ -18,7 +18,6 @@ def distance_mag(pt1, pt2):
 
 
 def find_center(pts, center, current_centroid, bgr_img):
-    #TODO: IMPROVE THE METHOD OF FINDING A FACE
     dict = []
 
     for i in range(len(pts)):
@@ -32,7 +31,7 @@ def find_center(pts, center, current_centroid, bgr_img):
             pt1 = dict[0]
             pt2 = dict[i]
 
-            if abs(dict[i][1] - dict[0][1]) <= 0.2:
+            if abs(dict[i][1] - dict[0][1]) <= 0.14:
                 dict.remove(pt1)
                 dict.remove(pt2)
                 break
@@ -101,7 +100,7 @@ def center_filter(imageWidth, imageHeight, whiteCentroids, blackCentroids, bgr_i
 def main():
     # Read image
     imW = 480
-    bgr_img = cv2.imread("L1.jpg")
+    bgr_img = cv2.imread("testing/L1.jpg")
     bgr_img = cv2.resize(bgr_img, (int(imW), int(imW * bgr_img.shape[0] / bgr_img.shape[1])))
 
     image_height = bgr_img.shape[0]
@@ -155,13 +154,14 @@ def main():
 
     # draw points
     for i in range(len(centroid_location_white)):
-        cv2.circle(bgr_img, center=(int(centroid_location_white[i][0]), int(centroid_location_white[i][1])), radius=5, color=(0, 0, 255), thickness=-1)
+    #    cv2.circle(bgr_img, center=(int(centroid_location_white[i][0]), int(centroid_location_white[i][1])), radius=5, color=(0, 0, 255), thickness=-1)
         cv2.putText(bgr_img, text=str(i),
                     org=(int(centroid_location_white[i][0]), int(centroid_location_white[i][1])), fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=0.5, color=(0, 0, 0))
 
-    for i in range(len(centroid_location_white)):
-        if (i >= len(centroid_location_white)):
-            i = 0
+    i = 0
+    while len(centroid_location_white) > 0:
+        if i == len(centroid_location_white):
+            break
         distance = []
         index = []
         for j in range(len(centroid_location_white)):
@@ -198,7 +198,11 @@ def main():
                     for q in range(len(faces[p])):
                         cv2.circle(bgr_img, center=(int(faces[p][q][0]), int(faces[p][q][1])),radius=5, color=color, thickness=-1)
                         centroid_location_white.remove(faces[p][q])
+                    i = 0
                     break
+        else:
+            i += 1
+    print(faces[2])
     cv2.imshow("show centroid", bgr_img)
     cv2.waitKey(0)
 
