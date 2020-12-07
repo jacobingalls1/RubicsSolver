@@ -8,6 +8,7 @@ from find_cube_side import find_sides
 from centroidProcess import format_faces
 from faceMap import setFaces 
 from rubik_solver import utils
+from orderStickers import order
 
 
 images = []
@@ -27,8 +28,10 @@ def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
     print(faces)
-    exit()
     for i in faces:
+        i = order(i)
+        print(i)
+        exit()
         cube.setFaces(i)
         cube.cubeSolve()
     cv2.imwrite("output.png", image)
