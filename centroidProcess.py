@@ -3,9 +3,12 @@ import numpy as np
 from collections import defaultdict
 import math
 
+def dist(a, b):
+    return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+
 def closest(target, poss):
-    print(target, poss)
-    return min(poss, key=lambda p: math.dist(target.pos, p.pos))
+    
+    return min([p for p in poss if p.piece == 'e'], key=lambda p: dist(target, p.pos))
 
 def rotate(face, rot):
     for i in range(rot):
@@ -24,9 +27,12 @@ def format_faces(faces):
     for f in toFormat:
         c1 = f[0][4].pos
         c2 = f[1][4].pos
-        re1 = f[0].index(closest(c2, f[0]))
+        cl1 = closest(c2, f[0])
+        re1 = f[0].index(cl1)
+        print("HERE", cl1)
         #rotations are clockwise
         rot1 = [None, 1, None, 2, None, 0, None, 3][re1]
+        print(f[1])
         le2 = f[1].index(closest(c1, f[1]))
         rot2 = [None, 3, None, 0, None, 2, None, 1][le2]
         f1 = rotate(f[0], rot1)

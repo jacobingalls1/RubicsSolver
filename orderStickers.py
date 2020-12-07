@@ -53,8 +53,8 @@ def order(stickers):
             e = isEdge(stickers, i)
             if e:
                 i.piece = 'e'
-                e[0].piece = 'c'
-                e[1].piece = 'c'
+                e[0].piece = 'r'
+                e[1].piece = 'r'
                 stickers.remove(i)
                 stickers.remove(e[0])
                 stickers.remove(e[1])

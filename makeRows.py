@@ -1,8 +1,11 @@
 from classes import Sticker
 import math
 
+def dist(a, b):
+    return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+
 def closest(target, poss):
-    return min(poss, key=lambda p: math.dist(target.pos, p.pos))
+    return min(poss, key=lambda p: dist(target.pos, p.pos))
 
 # find the 4 borders of a face
 def find_border(edges, corners):

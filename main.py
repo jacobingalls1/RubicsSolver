@@ -5,11 +5,11 @@ import faceMap
 import time
 from classes import Cube, Sticker
 from find_cube_side import find_sides
-from centroidProcess import format_faces
+from orderStickers import order
 from makeRows import make_rows
+from centroidProcess import format_faces
 from faceMap import setFaces 
 from rubik_solver import utils
-from orderStickers import order
 
 
 images = []
@@ -28,14 +28,14 @@ cube = Cube()
 def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
+    faces = [i for i in faces if i!=[]]
     for i in faces:
         order(i.copy())
-        print(i)
         i = make_rows(i)
-        print(i)
-        exit()
-        cube.setFaces(i)
-        cube.solve()
+    facePairs = format_faces(faces)
+    for j in facePairs:
+        cube.setFaces(j)
+    cube.solve()
     cv2.imwrite("output.png", image)
 
 
