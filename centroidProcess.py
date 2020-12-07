@@ -1,9 +1,11 @@
 import cv2
 import numpy as np
 from collections import defaultdict
+import math
 
 def closest(target, poss):
-    return min(poss, key=lambda p: math.dist(target, p[1]))
+    print(target, poss)
+    return min(poss, key=lambda p: math.dist(target.pos, p.pos))
 
 def rotate(face, rot):
     for i in range(rot):
@@ -22,10 +24,10 @@ def format_faces(faces):
     for f in toFormat:
         c1 = f[0][4].pos
         c2 = f[1][4].pos
-        re1 = f[0].index(closest(c2, f[0][4]))
+        re1 = f[0].index(closest(c2, f[0]))
         #rotations are clockwise
         rot1 = [None, 1, None, 2, None, 0, None, 3][re1]
-        le2 = f[1].index(closest(c1, f[1][4]))
+        le2 = f[1].index(closest(c1, f[1]))
         rot2 = [None, 3, None, 0, None, 2, None, 1][le2]
         f1 = rotate(f[0], rot1)
         f2 = rotate(f[1], rot2)

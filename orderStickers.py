@@ -1,4 +1,5 @@
 from classes import Sticker
+import math
 
 closeness = .05
 

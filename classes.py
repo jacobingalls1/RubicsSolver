@@ -10,6 +10,10 @@ class Sticker:
     def __repr__(self):
         return " %s %s at (%i, %i)"%(self.piece, self.color, self.pos[0], self.pos[1])
 
+    def __eq__(self, other):
+        return self.pos[0] == other.pos[0] and self.pos[1] == other.pos[1]
+
+
 class Cube:
     def __init__(self):
         self.faces = 0
