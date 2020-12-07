@@ -6,6 +6,7 @@ import time
 from classes import Cube, Sticker
 from find_cube_side import find_sides
 from centroidProcess import format_faces
+from makeRows import make_rows
 from faceMap import setFaces 
 from rubik_solver import utils
 from orderStickers import order
@@ -28,7 +29,10 @@ def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
     for i in faces:
-        order(i)
+        order(i.copy())
+        print(i)
+        i = make_rows(i)
+        print(i)
         exit()
         cube.setFaces(i)
         cube.solve()

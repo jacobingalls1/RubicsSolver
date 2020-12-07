@@ -1,7 +1,7 @@
 from classes import Sticker
 import math
 
-closeness = .4
+closeness = .35
 
 def dist(a, b):
     return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
@@ -26,8 +26,8 @@ def isEdge(stickers, piece):
             j = stickers[j]
             mid = dist(((i.pos[0]+j.pos[0])/2, (i.pos[1]+j.pos[1])/2), piece.pos)
             tot = dist(i.pos, j.pos)
-            print(mid, tot, i.pos[:2], j.pos[:2], piece.pos[:2])
-            if mid < closeness*tot:
+            #print(mid, tot, i.pos[:2], j.pos[:2], piece.pos[:2])
+            if mid < (closeness*tot):
                 return i, j
     return False
 
@@ -47,6 +47,8 @@ def order(stickers):
         if len(stickers) == 2:
             stickers[0].piece = 'e'
             stickers[1].piece = 'e'
+            print("found edges")
+            return
         for i in stickers:
             e = isEdge(stickers, i)
             if e:
