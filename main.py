@@ -27,11 +27,8 @@ cube = Cube()
 def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
-    print(faces)
     for i in faces:
-        [print(type(j)) for j in i]
         order(i)
-        print(i)
         exit()
         cube.setFaces(i)
         cube.solve()

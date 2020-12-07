@@ -24,7 +24,6 @@ def findColor(imageRGB, point):
     bCount = 0
     gCount = 0
     rCount = 0
-    print(point)
     for i in range(5):
         for j in range(5):
             b, g, r = image[int(point[0]) + i - 2, int(point[1]) + j - 2]
