@@ -29,11 +29,12 @@ def perFrame(image):
     faces = find_sides(image)
     print(faces)
     for i in faces:
-        i = order(i)
+        [print(type(j)) for j in i]
+        order(i)
         print(i)
         exit()
         cube.setFaces(i)
-        cube.cubeSolve()
+        cube.solve()
     cv2.imwrite("output.png", image)
 
 
