@@ -20,7 +20,7 @@ def order(stickers):
         elif isClose(adj[2].dist[s], first):
             s.piece = 'e'
         else:
-            s.piece = 'c'
+            s.piece = 'r'
 
 
     
