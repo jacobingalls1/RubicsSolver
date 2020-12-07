@@ -20,12 +20,12 @@ def format_faces(faces):
     if len(faces) == 2:
         toFormat.append([faces[1],faces[2]])
     for f in toFormat:
-        c1 = f[0].pos
-        c2 = f[1].pos
-        re1 = f[0].index(closest(c2, f[0]))
+        c1 = f[0][4].pos
+        c2 = f[1][4].pos
+        re1 = f[0].index(closest(c2, f[0][4]))
         #rotations are clockwise
         rot1 = [None, 1, None, 2, None, 0, None, 3][re1]
-        le2 = f[1].index(closest(c1, f[1]))
+        le2 = f[1].index(closest(c1, f[1][4]))
         rot2 = [None, 3, None, 0, None, 2, None, 1][le2]
         f1 = rotate(f[0], rot1)
         f2 = rotate(f[1], rot2)
