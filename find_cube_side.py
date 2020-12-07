@@ -97,10 +97,10 @@ def center_filter(imageWidth, imageHeight, whiteCentroids, blackCentroids, bgr_i
     return white_centroids
 
 
-def main():
+def find_sides(image=imread("testing/L1.jpg", demo=False):
     # Read image
     imW = 480
-    bgr_img = cv2.imread("testing/L1.jpg")
+    bgr_img = image
     bgr_img = cv2.resize(bgr_img, (int(imW), int(imW * bgr_img.shape[0] / bgr_img.shape[1])))
 
     image_height = bgr_img.shape[0]
@@ -110,6 +110,7 @@ def main():
 
     binary_img = cv2.adaptiveThreshold(src=gray_img, maxValue=255, adaptiveMethod=cv2.ADAPTIVE_THRESH_MEAN_C,
                                        thresholdType=cv2.THRESH_BINARY, blockSize=31, C=10)
+
     cv2.imshow("binary", binary_img)
     cv2.waitKey(0)
 
@@ -202,9 +203,6 @@ def main():
                     break
         else:
             i += 1
-    print(faces[2])
     cv2.imshow("show centroid", bgr_img)
     cv2.waitKey(0)
-
-
-main()
+    return faces

@@ -4,9 +4,11 @@ class Sticker:
     def __init__(self, color='-', pos=(0,0)):
         self.color = color
         self.pos = pos
+        self.dist = {}
+        self.piece = '-'
 
     def __repr__(self):
-        return "Color %s at (%i, %i)"%(self.color, self.pos[0], self.pos[1])
+        return " %s %s at (%i, %i)"%(self.piece, self.color, self.pos[0], self.pos[1])
 
 class Cube:
     def __init__(self):

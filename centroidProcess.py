@@ -3,7 +3,7 @@ import numpy as np
 from collections import defaultdict
 
 def closest(target, poss):
-    return min(poss, key=lambda p: dist(target, p[1]))
+    return min(poss, key=lambda p: math.dist(target, p[1]))
 
 def rotate(face, rot):
     for i in range(rot):
@@ -31,10 +31,6 @@ def format_faces(faces):
         f2 = rotate(f[1], rot2)
         facePairs.append[f1,f2]
     return facePairs
-
-
-
-
 
 
 '''
