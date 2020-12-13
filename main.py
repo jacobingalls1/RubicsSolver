@@ -17,11 +17,12 @@ videos = []
 
 imW = 480
 
-for i in sys.argv[1:]:
+'''for i in sys.argv[1:]:
     if i.split('.')[-1] in ['mp4']:
         videos.append(i)
     else:
-        images.append(i)
+        images.append(i)'''
+images.append('./testing/L1.jpg')
 
 cube = Cube()
 
@@ -32,6 +33,7 @@ def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
     faces = [i for i in faces if i!=[]]
+    ordered_faces = []
     for i in faces:
         print("ordering")
         order(i.copy())
@@ -43,7 +45,9 @@ def perFrame(image):
                 color = (0,0,255)
             cv2.circle(image, stickerPos(j), 3, color, -1)
         cv2.imwrite("output.png", image)
-        i = make_rows(i)
+        print(image.shape)
+        ordered_faces.append(make_rows(i))
+    faces = ordered_faces
     facePairs = format_faces(faces)
     for j in facePairs:
         cube.setFaces(j)
