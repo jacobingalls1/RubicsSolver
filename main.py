@@ -25,12 +25,24 @@ for i in sys.argv[1:]:
 
 cube = Cube()
 
+def stickerPos(sticker):
+    return (int(sticker.pos[0]), int(sticker.pos[1]))
+
 def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
     faces = [i for i in faces if i!=[]]
     for i in faces:
+        print("ordering")
         order(i.copy())
+        for j in i:
+            color = (255,0,0)
+            if j.piece == 'e':
+                color = (0,255,0)
+            if j.piece == 'r':
+                color = (0,0,255)
+            cv2.circle(image, stickerPos(j), 3, color, -1)
+        cv2.imwrite("output.png", image)
         i = make_rows(i)
     facePairs = format_faces(faces)
     for j in facePairs:
@@ -45,12 +57,10 @@ for im in images:
     perFrame(image)
     print("took %f seconds" %((time.time_ns()-t0)/100000000))
 
-cube.cubeSolve()
 
 for v in videos:
     print("TODO: process videos")
 
-cube.cubeSolve()
 
 print("Sorry, not enough information")
 

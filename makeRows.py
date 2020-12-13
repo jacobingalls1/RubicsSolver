@@ -16,6 +16,7 @@ def find_border(edges, corners):
         # find the next closest sticker (another corner)
         corn2 = closest(edge, [c for c in corners if not c == corn1])
         rows.append([corn1, edge, corn2])
+
     return rows
 
 # find 3 parallel rows from 4 borders
@@ -69,6 +70,30 @@ def order_row(rows):
     ind = 0 if ind == 0 else 1
     rows = sort_rows(rows, ind)[::-1]
     return rows
+'''
+def bordToRows(bord, center):
+    print("BORDER")
+    [print(i) for i in bord]
+    row1 = bord[0]
+    bord.remove(bord[0])
+    row2 = [None, center, None]
+    row3 = [None, None, None]
+    used = []
+    for i in bord:
+        if row1[0] in i:
+            row2[0] = i[1]
+            row3[0] = [j for j in i if j.piece=='r' and j!=row1[0]][0]
+            used.append(i)
+        if row1[2] in i:
+            row2[2] = i[1]
+            row3[2] = [j for j in i if j.piece=='r' and j!=row1[0]][0]
+            used.append(i)
+    for i in used:
+        bord.remove(used)
+    row3[1] = bord[0][1]
+    return [row1, row2, row3]
+'''
+
 
 def testing():
     import random
@@ -91,6 +116,9 @@ def testing():
 def make_rows(face):
     edges = [s for s in face if s.piece == 'e']
     corners = [s for s in face if s.piece == 'r']
+    print("edges", edges)
+    print("corners", corners)
+    center = [s for s in face if s.piece == 'c'][0]
     for s in face:
         if s.piece == 'c':
             mid = s

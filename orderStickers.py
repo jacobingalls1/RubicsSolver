@@ -1,8 +1,6 @@
 from classes import Sticker
 import math
 
-closeness = .35
-
 def dist(a, b):
     return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
 
@@ -14,22 +12,6 @@ def closest(target, poss):
 
 def closestN(target, poss, n):
     return sorted(poss, key=lambda p: p.dist[target])[1:n+1]
-
-def isEdge(stickers, piece):
-    for ip in range(len(stickers)):
-        if stickers[ip] == piece:
-            continue
-        i = stickers[ip]
-        for j in range(ip, len(stickers)):
-            if stickers[j] == piece or ip == j:
-                continue
-            j = stickers[j]
-            mid = dist(((i.pos[0]+j.pos[0])/2, (i.pos[1]+j.pos[1])/2), piece.pos)
-            tot = dist(i.pos, j.pos)
-            #print(mid, tot, i.pos[:2], j.pos[:2], piece.pos[:2])
-            if mid < (closeness*tot):
-                return i, j
-    return False
 
 def order(stickers):
     pos = [0,0]
@@ -43,25 +25,35 @@ def order(stickers):
     center.piece = 'c'
     print(center.pos, pos)
     stickers.remove(center)
-    while stickers:
-        if len(stickers) == 2:
-            stickers[0].piece = 'e'
-            stickers[1].piece = 'e'
-            print("found edges")
-            return
-        for i in stickers:
-            e = isEdge(stickers, i)
-            if e:
-                i.piece = 'e'
-                e[0].piece = 'r'
-                e[1].piece = 'r'
-                stickers.remove(i)
-                stickers.remove(e[0])
-                stickers.remove(e[1])
-                break
-            print('couldn\'t find the edges')
-            return
-    return
+    edges = [[1000], [1000], [1000], [1000]]
+    def insert(insertion):
+        for i in range(len(edges)):
+            print(edges)
+            print(edges[i][0])
+            print(insertion[0])
+            if edges[i][0] > insertion[0]:
+                edges.insert(i, insertion)
+                edges.pop()
+                return
+
+    for ip in range(len(stickers)):
+        i = stickers[ip]
+        for jp in range(ip, len(stickers)):
+            if jp == ip:
+                continue
+            j = stickers[jp]
+            mid = ((i.pos[0]+j.pos[0])/2, (i.pos[1]+j.pos[1])/2)
+            tot = dist(i.pos, j.pos)
+            for kp in range(len(stickers)):
+                if kp == jp or kp == ip:
+                    continue
+                edgeness = dist(mid, stickers[kp].pos)/tot
+                insert((edgeness, stickers[kp], i, j))
+    for s in stickers:
+        s.piece = 'r'
+
+    for e in edges:
+        e[1].piece = 'e'
 
     '''
     d = {}
