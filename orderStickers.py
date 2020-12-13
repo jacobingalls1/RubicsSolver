@@ -52,8 +52,12 @@ def order(stickers):
     for s in stickers:
         s.piece = 'r'
 
+    border = []
     for e in edges:
         e[1].piece = 'e'
+        border.append((e[2],e[1],e[3]))
+
+    return border
 
     '''
     d = {}
