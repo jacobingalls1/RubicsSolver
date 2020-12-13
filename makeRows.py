@@ -132,15 +132,6 @@ def bordToRows(bord, center):
 def make_rows(face, bord):
     edges = [s for s in face if s.piece == 'e']
     corners = [s for s in face if s.piece == 'r']
-<<<<<<< HEAD
-    #print("edges", edges)
-    #print("corners", corners)
-    mid = [s for s in face if s.piece == 'c'][0]
-    for s in face:
-        if s.piece == 'c':
-            mid = s
-    bord = find_border(edges, corners)
-=======
     print("edges", edges)
     print("corners", corners)
     for s in face:
@@ -149,7 +140,6 @@ def make_rows(face, bord):
     print(mid)
 #    bord = find_border(edges, corners)
 #    return bordToRows(bord, mid)
->>>>>>> 08c23ad309245ba42044d319f2fd402e8a6a119a
     rows = classify_rows(bord, edges, mid)
     ord_rows = order_row(rows)
     print("ord_rows")
