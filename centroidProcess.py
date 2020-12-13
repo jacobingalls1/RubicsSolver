@@ -13,32 +13,36 @@ def closest(target, poss):
 def rotate(face, rot):
     for i in range(rot):
         face = [face[6], face[3], face[0], face[7], face[4], face[1], face[8], face[5], face[2]]
-    return [face[0].color+face[1].color+face[2].color,
-            face[3].color+face[4].color+face[5].color,
-            face[6].color+face[7].color+face[8].color]
+    return [face[0].color[0]+face[1].color[0]+face[2].color[0],
+            face[3].color[0]+face[4].color[0]+face[5].color[0],
+            face[6].color[0]+face[7].color[0]+face[8].color[0]]
 
 
 #faces is a list of lists with at 9 stickers - colors and positions, left to right, top to bottom
 def format_faces(faces):
-    print(faces)
+    for f in range(len(faces)):
+        faces[f] = faces[f][0]+faces[f][1]+faces[f][2]
+        print(faces[f])
     facePairs =  []
     toFormat = [[faces[0], faces[1]]]
-    if len(faces) == 2:
+    if len(faces) == 3:
         toFormat.append([faces[1],faces[2]])
     for f in toFormat:
+        print("two faced")
+        [print(fa, '\n') for fa in f]
         c1 = f[0][4].pos
         c2 = f[1][4].pos
         cl1 = closest(c2, f[0])
         re1 = f[0].index(cl1)
-        print("HERE", cl1)
+        print(re1)
         #rotations are clockwise
         rot1 = [None, 1, None, 2, None, 0, None, 3][re1]
-        print(f[1])
         le2 = f[1].index(closest(c1, f[1]))
+        print(le2)
         rot2 = [None, 3, None, 0, None, 2, None, 1][le2]
-        f1 = rotate(f[0], rot1)
-        f2 = rotate(f[1], rot2)
-        facePairs.append[f1,f2]
+        f1 = rotate(f[0].copy(), rot1)
+        f2 = rotate(f[1].copy(), rot2)
+        facePairs.append([f1,f2])
     return facePairs
 
 

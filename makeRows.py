@@ -26,6 +26,7 @@ def classify_rows(rows, edges, center):
     import cv2
     import random
     bl = np.zeros((640, 480, 3))
+    '''
     for r in rows:
         for p in r:
             cv2.putText(bl, str((int(p.pos[0]), int(p.pos[1]))), (int(p.pos[0]), int(p.pos[1])), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=0.5, color=(255,0,0))
@@ -34,6 +35,7 @@ def classify_rows(rows, edges, center):
     for e in edges:
         cv2.drawMarker(bl, (int(e.pos[0]), int(e.pos[1])), color=(0,0,255))
     cv2.imwrite(str(int(random.uniform(100,999)))+'a.jpg', bl)
+    '''
     row1 = rows[0]  # establish the first row
     # find a row parallel to row1
     for row in rows[1:]:
@@ -70,6 +72,10 @@ def sort_rows(rows, index):
     assert len(rows) == 3
     max_i = max(rows, key=lambda r: r[0].pos[index])
     min_i = min(rows, key=lambda r: r[0].pos[index])
+    if max_i[0].pos[index]-min_i[0].pos[index] < 10:
+        index=0 if index==1 else 1
+        max_i = max(rows, key=lambda r: r[0].pos[index])
+        min_i = min(rows, key=lambda r: r[0].pos[index])
     for s in rows:
         if s[0] not in [max_i[0], min_i[0]]:
             return [min_i, s, max_i]

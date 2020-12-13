@@ -1,4 +1,4 @@
-
+from faceMap import setFaces
 #colors are chars: y b r g o w
 class Sticker:
     def __init__(self, color='-', pos=(0,0)):
@@ -26,7 +26,7 @@ class Cube:
 # joined so that the final column of the first is adjacent to
 # the first column of the last
     def addFace(self, facesData):
-        self.faces += faceMap(self.notatedList, facesData)
+        setFaces(self.notatedList, facesData)
 
     def completeCube(self):
         return self.notatedList.count('-') == 0

@@ -17,13 +17,14 @@ videos = []
 
 imW = 480
 
-'''for i in sys.argv[1:]:
+for i in sys.argv[1:]:
     if i.split('.')[-1] in ['mp4']:
         videos.append(i)
     else:
-        images.append(i)'''
+        images.append(i)
+'''
 images.append('./testing/L1.jpg')
-
+'''
 cube = Cube()
 
 def stickerPos(sticker):
@@ -33,6 +34,8 @@ def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
     faces = [i for i in faces if i!=[]]
+    if len(faces) < 2:
+        return
     for ip in range(len(faces)):
         i = faces[ip]
         print("ordering")
@@ -49,7 +52,7 @@ def perFrame(image):
 
     facePairs = format_faces(faces)
     for j in facePairs:
-        cube.setFaces(j)
+        cube.addFace(j)
     cube.solve()
     cv2.imwrite("output.png", image)
 

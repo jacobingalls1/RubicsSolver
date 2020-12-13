@@ -19,6 +19,7 @@ settings = {'o': {'b': [0, 0], 'w': [3, 1], 'y': [1, 3], 'g': [2, 2]},
 
 def setFaces(stickers, faces): 
     colors = [faces[0][1][1], faces[1][1][1]]
+    print("COLORS", colors)
     start = [starts[i] for i in colors]
     if colors[0] in opposites[colors[1]]:
         print("ERROR: INVALID CUBE")
