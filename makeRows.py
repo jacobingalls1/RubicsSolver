@@ -70,10 +70,8 @@ def order_row(rows):
     ind = 0 if ind == 0 else 1
     rows = sort_rows(rows, ind)[::-1]
     return rows
-'''
+
 def bordToRows(bord, center):
-    print("BORDER")
-    [print(i) for i in bord]
     row1 = bord[0]
     bord.remove(bord[0])
     row2 = [None, center, None]
@@ -84,16 +82,19 @@ def bordToRows(bord, center):
             row2[0] = i[1]
             row3[0] = [j for j in i if j.piece=='r' and j!=row1[0]][0]
             used.append(i)
-        if row1[2] in i:
+        elif row1[2] in i:
             row2[2] = i[1]
             row3[2] = [j for j in i if j.piece=='r' and j!=row1[0]][0]
             used.append(i)
+    print(used)
+    [print(i) for i in used]
+    print(bord)
+    [print(i) for i in bord]
     for i in used:
+        print(i)
         bord.remove(used)
     row3[1] = bord[0][1]
     return [row1, row2, row3]
-'''
-
 
 def testing():
     import random
@@ -113,17 +114,19 @@ def testing():
     print(ord_rows)
 
 # MAIN FUNCTION FOR THIS FILE; ALL YOU NEED TO CALL
-def make_rows(face):
+def make_rows(face, bord):
     edges = [s for s in face if s.piece == 'e']
     corners = [s for s in face if s.piece == 'r']
     print("edges", edges)
     print("corners", corners)
-    center = [s for s in face if s.piece == 'c'][0]
     for s in face:
         if s.piece == 'c':
             mid = s
-
-    bord = find_border(edges, corners)
+    print(mid)
+#    bord = find_border(edges, corners)
+#    return bordToRows(bord, mid)
     rows = classify_rows(bord, edges, mid)
     ord_rows = order_row(rows)
+    print("ord_rows")
+    [print(i) for i in ord_rows]
     return ord_rows

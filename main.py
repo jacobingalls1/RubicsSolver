@@ -34,7 +34,7 @@ def perFrame(image):
     faces = [i for i in faces if i!=[]]
     for i in faces:
         print("ordering")
-        order(i.copy())
+        border = order(i.copy())
         for j in i:
             color = (255,0,0)
             if j.piece == 'e':
@@ -43,7 +43,7 @@ def perFrame(image):
                 color = (0,0,255)
             cv2.circle(image, stickerPos(j), 3, color, -1)
         cv2.imwrite("output.png", image)
-        i = make_rows(i)
+        i = make_rows(i, border)
     facePairs = format_faces(faces)
     for j in facePairs:
         cube.setFaces(j)
