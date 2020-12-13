@@ -35,15 +35,12 @@ def classify_rows(rows, edges, center):
         cv2.drawMarker(bl, (int(e.pos[0]), int(e.pos[1])), color=(0,0,255))
     cv2.imwrite(str(int(random.uniform(100,999)))+'a.jpg', bl)
     row1 = rows[0]  # establish the first row
-    print(row1)
     # find a row parallel to row1
     for row in rows[1:]:
-        print(row)
         skip = False
         for sticker in row:
             if sticker in row1: # this row is not parallel, skip
                 skip = True
-                print('\t', sticker)
                 break
         if skip:
             continue
@@ -142,6 +139,4 @@ def make_rows(face, bord):
 #    return bordToRows(bord, mid)
     rows = classify_rows(bord, edges, mid)
     ord_rows = order_row(rows)
-    print("ord_rows")
-    [print(i) for i in ord_rows]
     return ord_rows

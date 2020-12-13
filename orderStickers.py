@@ -23,14 +23,10 @@ def order(stickers):
     pos[1]/=9
     center = closest(pos, stickers)
     center.piece = 'c'
-    print(center.pos, pos)
     stickers.remove(center)
     edges = [[1000], [1000], [1000], [1000]]
     def insert(insertion):
         for i in range(len(edges)):
-            print(edges)
-            print(edges[i][0])
-            print(insertion[0])
             if edges[i][0] > insertion[0]:
                 edges.insert(i, insertion)
                 edges.pop()

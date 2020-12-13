@@ -20,6 +20,7 @@ def rotate(face, rot):
 
 #faces is a list of lists with at 9 stickers - colors and positions, left to right, top to bottom
 def format_faces(faces):
+    print(faces)
     facePairs =  []
     toFormat = [[faces[0], faces[1]]]
     if len(faces) == 2:
