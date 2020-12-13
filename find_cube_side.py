@@ -136,7 +136,7 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
     for n in range(num_labels):
         xc, yc = centroids[n]
         area = stats[n, cv2.CC_STAT_AREA]
-        if area > 50 and area < 8000:
+        if area > 500 and area < 8000:   # was 50 and 8000 for L1
             centroid_location_white.append((xc, yc, area))
 
     # reverse black and white and find Black centroids
@@ -159,7 +159,7 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
 
     # draw points
     for i in range(len(centroid_location_white)):
-    #    cv2.circle(bgr_img, center=(int(centroid_location_white[i][0]), int(centroid_location_white[i][1])), radius=5, color=(0, 0, 255), thickness=-1)
+        cv2.circle(bgr_img, center=(int(centroid_location_white[i][0]), int(centroid_location_white[i][1])), radius=5, color=(0, 0, 255), thickness=-1)
         cv2.putText(bgr_img, text=str(i),
                     org=(int(centroid_location_white[i][0]), int(centroid_location_white[i][1])), fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=0.5, color=(0, 0, 0))
 
@@ -216,3 +216,5 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
     for f in range(len(faces)):
         faces[f] = [Sticker(findColor(bgr_img, i), i) for i in faces[f]]
     return faces
+
+find_sides(image=cv2.imread("testing/m1b.jpg"), demo=True)
