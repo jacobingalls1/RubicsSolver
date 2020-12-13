@@ -4,19 +4,19 @@ import numpy as np
 
 
 
-colors =[[[20,130,130], [40,255,255]], #y
-         [[100,130,130], [120,255,255]], #B
-         [[60,100,100], [100,255,255]], #G
-         [[5,130,130], [20,255,255]], #O
-         [[0,20,200], [180,100,255]], #W
+colors =[[[15,130,130], [40,255,255]], #y [0][0] was 20
+         [[100,70,50], [120,255,255]], #B [0][1] was 130 [0][2] was 130
+         [[30,60,60], [100,255,255]], #G [0][0] was 60 [0][1] was 100 [0][2] was 100
+         [[5,130,130], [15,255,255]], #O [1][0] was 20
+         [[0,20,120], [180,100,255]], #W [0][2] was 200
          [[150,130,130], [180,255,255]], #R1
-         [[0,130,130], [10,255,255]]] #R2
+         [[0,130,115], [10,255,255]]] #R2 [0][2] was 130
 
 
 #Pass in image object, and point as a list
 #Returns color with hsv values
 def findColor(imageRGB, point):
-    #cv2.imshow("RGB", imageRGB)
+    cv2.imshow("RGB", imageRGB)
     image = cv2.cvtColor(imageRGB, cv2.COLOR_BGR2HSV)
     #cv2.imshow("HSV", image) 
 
@@ -33,9 +33,11 @@ def findColor(imageRGB, point):
 
     pointColor = [bCount/25, gCount/25, rCount/25]
 
+    print(pointColor)
 
-    #imageRBG = cv2.rectangle(imageRGB, (point[1] - 2, point[0] - 2),(point[1] + 2, point[0] + 2), (255, 0, 0), 1)
-    #cv2.imshow("RGB", imageRGB)
+
+    imageRBG = cv2.rectangle(imageRGB, (point[1] - 2, point[0] - 2),(point[1] + 2, point[0] + 2), (255, 0, 0), 1)
+    cv2.imshow("RGB", imageRGB)
 
 
 
@@ -66,7 +68,7 @@ def findColor(imageRGB, point):
 
     
 
-#image = cv2.imread("output.png")
-#point = [420, 250]
+image = cv2.imread("testing/L0.jpg")
+point = [220, 290]
 
-#print(findColor(image, point))
+print(findColor(image, point))
