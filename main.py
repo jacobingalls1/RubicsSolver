@@ -33,7 +33,6 @@ def perFrame(image):
     image = cv2.resize(image, (int(imW), int(imW*image.shape[0]/image.shape[1])))
     faces = find_sides(image)
     faces = [i for i in faces if i!=[]]
-    ordered_faces = []
     for i in faces:
         print("ordering")
         border = order(i.copy())
@@ -45,19 +44,12 @@ def perFrame(image):
                 color = (0,0,255)
             cv2.circle(image, stickerPos(j), 3, color, -1)
         cv2.imwrite("output.png", image)
-<<<<<<< HEAD
-        print(image.shape)
-        ordered_faces.append(make_rows(i))
-    faces = ordered_faces
-=======
         i = make_rows(i, border)
->>>>>>> 08c23ad309245ba42044d319f2fd402e8a6a119a
     facePairs = format_faces(faces)
     for j in facePairs:
         cube.setFaces(j)
     cube.solve()
     cv2.imwrite("output.png", image)
-
 
 for im in images:
     t0 = time.time_ns() 

@@ -6,7 +6,7 @@ def dist(a, b):
 
 def closest(target, poss):
     return min(poss, key=lambda p: dist(target.pos, p.pos))
-    # return min(poss, key=lambda p: math.dist(target.pos, p.pos))    # REQUIRES PY3.8
+    #return min(poss, key=lambda p: math.dist(target.pos, p.pos))    # REQUIRES PY3.8
 
 # find the 4 borders of a face
 def find_border(edges, corners):
