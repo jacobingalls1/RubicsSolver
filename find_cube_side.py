@@ -229,6 +229,7 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
     # print(faces)
     # print(secaf)
 
+    #I believe secalf is not needed. Faces should be sufficient
     for f in range(len(faces)):
         faces[f] = [Sticker(findColor(bgr_img_backup, i), i) for i in faces[f]]
 
