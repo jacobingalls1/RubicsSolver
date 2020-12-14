@@ -186,8 +186,11 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
                 closest_pts.append((centroid_location_white[indx][0], centroid_location_white[indx][1], centroid_location_white[indx][2]))
         is_center = find_center(closest_pts, start_pt, i, bgr_img)
         if is_center:       # add the pts to faces if a center of a face is found
-            temp = closest_pts
-            temp.append(start_pt)
+            temp = []
+            for pt in closest_pts:
+                temp.append((pt[0], pt[1]))
+            #temp = closest_pts
+            temp.append((start_pt[0], start_pt[1]))
 
             for p in range(len(faces)):
                 if len(faces[p]) == 0:
@@ -200,21 +203,26 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
                         color = (0, 255, 0)
                     elif p == 2:
                         color = (0, 0, 255)
-                    for q in range(len(faces[p])):
+                    for q in range(len(closest_pts)):
                         if demo:
                             cv2.circle(bgr_img, center=(int(faces[p][q][0]), int(faces[p][q][1])),radius=5, color=color, thickness=-1)
-                        centroid_location_white.remove(faces[p][q])
+                        centroid_location_white.remove(closest_pts[q])
+                    centroid_location_white.remove(start_pt)
+                    cv2.circle(bgr_img, center=(int(start_pt[0]), int(start_pt[1])),radius=5, color=color, thickness=-1)
                     i = 0
                     break
         else:
             i += 1
+
     if demo:
         cv2.imshow("show centroid", bgr_img)
         cv2.waitKey(0)
         exit()
-    
+    print(faces)
+
     for f in range(len(faces)):
         faces[f] = [Sticker(findColor(bgr_img, i), i) for i in faces[f]]
+
     return faces
 
-find_sides(image=cv2.imread("testing/L1.jpg"), demo=True)
+find_sides(image=cv2.imread("testing/L1.jpg"), demo=False)
