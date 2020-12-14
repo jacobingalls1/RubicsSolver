@@ -105,7 +105,7 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
     imW = 480
     bgr_img = image
     bgr_img = cv2.resize(bgr_img, (int(imW), int(imW * bgr_img.shape[0] / bgr_img.shape[1])))
-
+    bgr_img_backup = cv2.resize(bgr_img, (int(imW), int(imW * bgr_img.shape[0] / bgr_img.shape[1])))
     image_height = bgr_img.shape[0]
     image_width = bgr_img.shape[1]
 
@@ -218,10 +218,19 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
         cv2.imshow("show centroid", bgr_img)
         cv2.waitKey(0)
         exit()
-    print(faces)
+    #print(faces)
+
+    secaf = []
+    for i in range(len(faces)):
+        temp = []
+        for j in range(len(faces[i])):
+            temp.append((faces[i][j][1], faces[i][j][0]))
+        secaf.append(temp)
+    # print(faces)
+    # print(secaf)
 
     for f in range(len(faces)):
-        faces[f] = [Sticker(findColor(bgr_img, i), i) for i in faces[f]]
+        faces[f] = [Sticker(findColor(bgr_img_backup, i), i) for i in faces[f]]
 
     return faces
 
