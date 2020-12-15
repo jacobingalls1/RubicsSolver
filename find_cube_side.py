@@ -328,18 +328,18 @@ def find_sides(image=cv2.imread("testing/L1.jpg"), demo=False):
         cv2.waitKey(0)
         exit()
 
-    secaf = []
-    for i in range(len(faces)):
-        temp = []
-        for j in range(len(faces[i])):
-            temp.append((faces[i][j][1], faces[i][j][0]))
-        secaf.append(temp)
+    # secaf = []
+    # for i in range(len(faces)):
+    #     temp = []
+    #     for j in range(len(faces[i])):
+    #         temp.append((faces[i][j][1], faces[i][j][0]))
+    #     secaf.append(temp)
 
 
-    for f in range(len(secaf)):
-        secaf[f] = [Sticker(findColor(bgr_img_backup, i), i) for i in secaf[f]]
+    for f in range(len(faces)):
+        faces[f] = [Sticker(findColor(bgr_img_backup, i), i) for i in faces[f]]
 
-    return secaf
+    return faces
 
 
 find_sides(image=cv2.imread("testing/L3.jpg"), demo=True)
