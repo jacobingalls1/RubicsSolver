@@ -22,9 +22,10 @@ for i in sys.argv[1:]:
         videos.append(i)
     else:
         images.append(i)
-'''
-images.append('./testing/L1.jpg')
-'''
+
+images.append('./testing/L2.jpg')
+images.append('./testing/L3.jpg')
+
 cube = Cube()
 
 def stickerPos(sticker):
